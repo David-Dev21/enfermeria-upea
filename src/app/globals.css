@@ -1,6 +1,13 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* src/app/globals.css */
+
+/* body *{
+  border: 1px solid red;
+} */
 
 :root {
   --background: #ffffff;
