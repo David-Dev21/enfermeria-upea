@@ -1,6 +1,7 @@
 "use client"; // Añade esta línea al principio del archivo
 import { useState } from 'react';
 import { usePathname } from 'next/navigation';
+import ButtonLink from './ButtonLink';
 
 export default function NavBar() {
     const [state, setState] = useState(false);
@@ -10,8 +11,8 @@ export default function NavBar() {
         { title: "Inicio", path: "/" },
         { title: "Nuestra Carrera", path: "/nuestra-carrera" },
         { title: "Comunicados", path: "/comunicados" },
-        { title: "Contacto", path: "/contacto" },
-        { title: "Capacitación", path: "/capacitacion" },
+        { title: "Contactos", path: "/contactos" },
+        { title: "Capacitaciones", path: "/capacitaciones" },
         { title: "Enlaces", path: "/enlaces" }
     ];
 
@@ -44,7 +45,7 @@ export default function NavBar() {
                     <ul className="justify-center items-center space-y-8 md:flex md:space-x-6 md:space-y-0">
                         {
                             navigation.map((item, idx) => (
-                                <li key={idx} className={`text-gray-600 hover:text-blue-600 ${pathname === item.path ? 'bg-red-400 text-white p-2 rounded-lg' : ''}`}>
+                                <li key={idx} className={`text-gray-600 hover:text-blue-600 ${pathname === item.path ? 'bg-red-400 text-white p-2 rounded-2xl' : ''}`}>
                                     <a href={item.path}>
                                         {item.title}
                                     </a>
@@ -54,9 +55,9 @@ export default function NavBar() {
                     </ul>
                 </div>
                 <div className="hidden md:inline-block">
-                    <a href="https://administracionpaginas.upea.edu.bo/login" className="py-3 px-4 text-white bg-blue-600 hover:bg-blue-700 rounded-md shadow">
-                        Iniciar Sesión
-                    </a>
+                    <ButtonLink href={"https://administracionpaginas.upea.edu.bo/login"}>
+                        Iniciar Sesion
+                    </ButtonLink>
                 </div>
             </div>
         </nav>

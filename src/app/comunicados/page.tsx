@@ -1,14 +1,17 @@
 'use client';
-import Header from "@/components/Header";
-import { Card, CardContent } from "@/components/ModernCard";
-import axios from "axios";
-import { useEffect, useState } from "react";
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination, Navigation } from 'swiper/modules';
-import { Announcement } from "@/interfaces/interfaces";
+import Header from '@/components/Header';
+import { Announcement } from '@/interfaces/interfaces';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBell, faBullhorn, faCalendarDays } from '@fortawesome/free-solid-svg-icons';
+import { config } from '@fortawesome/fontawesome-svg-core';
+config.autoAddCss = true;
 
 const AnnouncementsPage = () => {
     const [announcement, setAnnouncement] = useState<Announcement[]>([]);
@@ -52,14 +55,15 @@ const AnnouncementsPage = () => {
 
     return (
         <>
-            <Header title='CONVOCATORIAS'></Header>
-            <section className="max-w-screen-xl mx-auto px-4 md:px-10">
+            <section className="max-w-screen-lg mx-auto  mt-12 md:mt-20 px-4 md:px-6">
+                <Header title='CONVOCATORIAS'>
+                    <FontAwesomeIcon icon={faCalendarDays} className='text-red-600' />
+                </Header>
                 <Swiper
                     modules={[Pagination, Navigation]}
-                    spaceBetween={30}
+                    spaceBetween={12}
                     slidesPerView={1}
                     pagination={{ clickable: true }}
-                    navigation
                     breakpoints={{
                         640: {
                             slidesPerView: 1,
@@ -71,36 +75,36 @@ const AnnouncementsPage = () => {
                             slidesPerView: 3,
                         },
                     }}
+                    className="w-full relative"
                 >
                     {calls.map((item) => (
                         <SwiperSlide key={item.idconvocatorias}>
-                            <div className="mx-10 pb-10">
-                                <Card>
-                                    <img
-                                        src={`https://serviciopagina.upea.bo//Convocatorias/${item.con_foto_portada}`}
-                                        className="w-full h-60 sm:h-52 md:h-56 object-contain shadow-md cursor-pointer"
-                                        alt={item.con_titulo}
-                                        onClick={() => setSelectedImage(`https://serviciopagina.upea.bo//Convocatorias/${item.con_foto_portada}`)}
-                                    />
-                                    <CardContent>
-                                        <div dangerouslySetInnerHTML={{ __html: item.con_descripcion }} />
-                                        <p className="text-center text-gray-500 mt-2">Fecha Inicio: {new Date(item.con_fecha_inicio).toLocaleDateString()}</p>
-                                        <p className="text-center text-gray-500">Fecha Fin: {new Date(item.con_fecha_fin).toLocaleDateString()}</p>
-                                    </CardContent>
-                                </Card>
+                            <div className="w-full mx-auto px-10 md:w-3/4 md:px-0">
+                                <img
+                                    src={`https://serviciopagina.upea.bo//Convocatorias/${item.con_foto_portada}`}
+                                    className="object-cover shadow-md cursor-pointer rounded-t-2xl h-80 w-full"
+                                    alt={item.con_titulo}
+                                    onClick={() => setSelectedImage(`https://serviciopagina.upea.bo//Convocatorias/${item.con_foto_portada}`)}
+                                />
+                                <div className="p-4">
+                                    <p className="text-center text-gray-500 mt-2">Fecha Inicio: {new Date(item.con_fecha_inicio).toLocaleDateString()}</p>
+                                    <p className="text-center text-gray-500">Fecha Fin: {new Date(item.con_fecha_fin).toLocaleDateString()}</p>
+                                </div>
                             </div>
                         </SwiperSlide>
                     ))}
                 </Swiper>
             </section>
-            <Header title='AVISOS'></Header>
-            <section className="max-w-screen-xl mx-auto px-4 md:px-10">
+
+            <section className="max-w-screen-lg mx-auto mt-12 md:mt-20 px-4 md:px-6">
+                <Header title='AVISOS'>
+                    <FontAwesomeIcon icon={faBell} className="text-red-600" />
+                </Header>
                 <Swiper
                     modules={[Pagination, Navigation]}
-                    spaceBetween={30}
+                    spaceBetween={12}
                     slidesPerView={1}
                     pagination={{ clickable: true }}
-                    navigation
                     breakpoints={{
                         640: {
                             slidesPerView: 1,
@@ -112,36 +116,35 @@ const AnnouncementsPage = () => {
                             slidesPerView: 3,
                         },
                     }}
+                    className="w-full relative"
                 >
                     {notices.map((item) => (
                         <SwiperSlide key={item.idconvocatorias}>
-                            <div className="mx-10 pb-10">
-                                <Card>
-                                    <img
-                                        src={`https://serviciopagina.upea.bo//Convocatorias/${item.con_foto_portada}`}
-                                        className="w-full h-60 sm:h-52 md:h-56 object-contain shadow-md cursor-pointer"
-                                        alt={item.con_titulo}
-                                        onClick={() => setSelectedImage(`https://serviciopagina.upea.bo//Convocatorias/${item.con_foto_portada}`)}
-                                    />
-                                    <CardContent>
-                                        <div dangerouslySetInnerHTML={{ __html: item.con_descripcion }} />
-                                        <p className="text-center text-gray-500 mt-2">Fecha Inicio: {new Date(item.con_fecha_inicio).toLocaleDateString()}</p>
-                                        <p className="text-center text-gray-500">Fecha Fin: {new Date(item.con_fecha_fin).toLocaleDateString()}</p>
-                                    </CardContent>
-                                </Card>
+                            <div className="w-full mx-auto px-10 md:w-3/4 md:px-0">
+                                <img
+                                    src={`https://serviciopagina.upea.bo//Convocatorias/${item.con_foto_portada}`}
+                                    className="object-cover shadow-md cursor-pointer rounded-t-2xl h-80 w-full"
+                                    alt={item.con_titulo}
+                                    onClick={() => setSelectedImage(`https://serviciopagina.upea.bo//Convocatorias/${item.con_foto_portada}`)}
+                                />
+                                <div className="p-4">
+                                    <div className="text-center text-gray-500 mt-2" dangerouslySetInnerHTML={{ __html: item.con_descripcion }} />
+                                </div>
                             </div>
                         </SwiperSlide>
                     ))}
                 </Swiper>
             </section>
-            <Header title='COMUNICADOS'></Header>
-            <section className="max-w-screen-xl mx-auto px-4 md:px-10">
+
+            <section className="max-w-screen-lg mx-auto mt-12 md:mt-20 px-4 md:px-6">
+                <Header title='COMUNICADOS'>
+                    <FontAwesomeIcon icon={faBullhorn} className='text-red-600' />
+                </Header>
                 <Swiper
                     modules={[Pagination, Navigation]}
-                    spaceBetween={30}
+                    spaceBetween={12}
                     slidesPerView={1}
                     pagination={{ clickable: true }}
-                    navigation
                     breakpoints={{
                         640: {
                             slidesPerView: 1,
@@ -153,23 +156,20 @@ const AnnouncementsPage = () => {
                             slidesPerView: 3,
                         },
                     }}
+                    className="w-full relative"
                 >
                     {communications.map((item) => (
                         <SwiperSlide key={item.idconvocatorias}>
-                            <div className="mx-10 pb-10">
-                                <Card>
-                                    <img
-                                        src={`https://serviciopagina.upea.bo//Convocatorias/${item.con_foto_portada}`}
-                                        className="w-full h-60 sm:h-52 md:h-56 object-contain shadow-md cursor-pointer"
-                                        alt={item.con_titulo}
-                                        onClick={() => setSelectedImage(`https://serviciopagina.upea.bo//Convocatorias/${item.con_foto_portada}`)}
-                                    />
-                                    <CardContent>
-                                        <div dangerouslySetInnerHTML={{ __html: item.con_descripcion }} />
-                                        <p className="text-center text-gray-500 mt-2">Fecha Inicio: {new Date(item.con_fecha_inicio).toLocaleDateString()}</p>
-                                        <p className="text-center text-gray-500">Fecha Fin: {new Date(item.con_fecha_fin).toLocaleDateString()}</p>
-                                    </CardContent>
-                                </Card>
+                            <div className="w-full md:w-3/4 mx-auto">
+                                <img
+                                    src={`https://serviciopagina.upea.bo//Convocatorias/${item.con_foto_portada}`}
+                                    className="object-cover shadow-md cursor-pointer rounded-t-2xl h-80 w-full"
+                                    alt={item.con_titulo}
+                                    onClick={() => setSelectedImage(`https://serviciopagina.upea.bo//Convocatorias/${item.con_foto_portada}`)}
+                                />
+                                <div className="p-4">
+                                    <div className="text-center text-gray-500 mt-2" dangerouslySetInnerHTML={{ __html: item.con_descripcion }} />
+                                </div>
                             </div>
                         </SwiperSlide>
                     ))}

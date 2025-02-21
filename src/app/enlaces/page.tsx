@@ -1,43 +1,50 @@
 'use client';
+import { motion } from 'framer-motion';
 import Header from "@/components/Header";
-import { Card, CardContent, CardTitle } from "@/components/ModernCard";
+import { faLink } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const LinksPage = () => {
     return (
-        <>
-            <Header title='Enlaces'></Header>
-            <section className="max-w-screen-xl mx-auto px-4 md:px-10 py-8">
-                <div className="flex flex-col lg:flex-row items-center gap-x-12 gap-y-8 sm:px-4 md:px-0">
-                    <div className="flex-1 max-w-xl px-4">
-                        <Card>
-                            <CardTitle>Mae</CardTitle>
-                            <CardContent>
-                                <p className="text-lg">M@e es el sistema de matriculación académica de la UPEA.</p>
-                            </CardContent>
-                            <a href="https://matriculacion.upea.bo/" className="bg-tertiary text-white py-2 px-4 rounded hover:bg-tertiary w-full mt-4 transition duration-300 ease-in-out transform hover:scale-105 shadow-lg">Ir a M@e</a>
-                        </Card>
+        <section className="max-w-screen-2xl mt-24 mx-auto px-4 md:px-10">
+            <Header title='Enlaces'>
+                <FontAwesomeIcon icon={faLink} className="text-red-600" />
+            </Header>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 items-center justify-center mx-auto py-16 gap-12 lg:gap-0">
+                <motion.div className="w-full px-10 text-sm bg-red-600 rounded-3xl lg:w-72 lg:px-0 mx-auto" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
+                    <div className='p-3 text-center'>
+                        <a href="https://matriculacion.upea.bo/" target="_blank">
+                            <img src="/images/mae.png" alt="m@e" />
+                            <p className="text-lg text-white">M@e es el sistema de matriculación académica de la UPEA.</p>
+                        </a>
                     </div>
-                    <div className="flex-1 max-w-xl px-4">
-                        <Card>
-                            <CardTitle>Campus Virtual</CardTitle>
-                            <CardContent>
-                                <p className="text-lg">El Campus Virtual es la plataforma de aprendizaje en línea de la UPEA.</p>
-                            </CardContent>
-                            <a href="https://virtualadministracion.upea.bo/" className="bg-tertiary text-white py-2 px-4 rounded hover:bg-tertiary w-full mt-4 transition duration-300 ease-in-out transform hover:scale-105 shadow-lg">Ir al Campus Virtual</a>
-                        </Card>
+                </motion.div>
+                <motion.div className="w-full px-10 text-sm bg-orange-400 rounded-3xl lg:w-72 lg:px-0 mx-auto" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5, delay: 0.2 }}>
+                    <div className='p-3 text-center'>
+                        <a href="https://inscripciones.upea.bo/" target="_blank">
+                            <img src="/images/inscripciones.png" alt="inscripciones" />
+                            <p className="text-lg text-white">Sistema de inscripciones para estudiantes antiguos ENFERMERIA</p>
+                        </a>
                     </div>
-                    <div className="flex-1 max-w-xl px-4">
-                        <Card>
-                            <CardTitle>Inscripciones</CardTitle>
-                            <CardContent>
-                                <p className="text-lg">Sistema de inscripciones para estudiantes antiguos ENFERMERIA</p>
-                            </CardContent>
-                            <a href="https://inscripciones.upea.bo/" className="bg-tertiary text-white py-2 px-4 rounded hover:bg-tertiary w-full mt-4 transition duration-300 ease-in-out transform hover:scale-105 shadow-lg">Ir al Inscripciones</a>
-                        </Card>
+                </motion.div>
+                <motion.div className="w-full px-10 text-sm bg-blue-900 rounded-3xl lg:w-72 lg:px-0 mx-auto" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5, delay: 0.4 }}>
+                    <div className='p-3 text-center'>
+                        <a href="https://virtualenfermeria.upea.bo/" target='_blank'>
+                            <img src="/images/moodle.png" alt="moodle" />
+                            <p className="text-lg">El Campus Virtual es la plataforma de aprendizaje en línea de la UPEA.</p>
+                        </a>
                     </div>
-                </div>
-            </section>
-        </>
+                </motion.div>
+                <motion.div className="w-full px-10 text-sm bg-gray-600 rounded-3xl lg:w-72 lg:px-0 mx-auto" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5, delay: 0.6 }}>
+                    <div className='p-3 text-center'>
+                        <a href='https://biblioteca.upea.bo/cgi-bin/koha/opac-search.pl?idx=ti&q=enfermeria&weight_search=1' target='_blank'>
+                            <img src="/images/upea.png" alt="upea" className='w-28 mx-auto' />
+                            <p className="text-lg">La Biblioteca Virtual de la Upea es una colección de recursos digitales accesibles en línea.</p>
+                        </a>
+                    </div>
+                </motion.div>
+            </div >
+        </section >
     );
 };
 

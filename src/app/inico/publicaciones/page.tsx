@@ -5,12 +5,13 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination, Navigation } from 'swiper/modules';
-import { Card, CardContent } from "@/components/ModernCard"; // Asegúrate de importar tu componente de tarjeta
 import Header from '@/components/Header';
 import { Publication } from '@/interfaces/interfaces';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faNewspaper } from '@fortawesome/free-solid-svg-icons';
 
 const PublicationsPage = () => {
     const [publications, setPublications] = useState<Publication[]>([]);
@@ -50,14 +51,15 @@ const PublicationsPage = () => {
 
     return (
         <>
-            <Header title='Publicaciones'></Header>
-            <section className="max-w-screen-xl mx-auto px-4 md:px-10">
+            <section className="max-w-screen-lg mx-auto mt-12 md:mt-28 px-4 md:px-6">
+                <Header title='Publicaciones'>
+                    <FontAwesomeIcon icon={faNewspaper} className="text-red-600" />
+                </Header>
                 <Swiper
                     modules={[Pagination, Navigation]}
-                    spaceBetween={30}
+                    spaceBetween={12}
                     slidesPerView={1}
                     pagination={{ clickable: true }}
-                    navigation
                     breakpoints={{
                         640: {
                             slidesPerView: 1,
@@ -69,24 +71,22 @@ const PublicationsPage = () => {
                             slidesPerView: 3,
                         },
                     }}
+                    className="w-full relative"
                 >
                     {publications.map((item) => (
                         <SwiperSlide key={item.publicaciones_id}>
-                            <div className="mx-10 pb-10">
-                                <Card>
-                                    <img
-                                        src={`https://serviciopagina.upea.bo/Publicaciones/${item.publicaciones_imagen}`}
-                                        className="w-full h-60 sm:h-52 md:h-56 object-contain shadow-md cursor-pointer"
-                                        alt={item.publicaciones_titulo}
-                                        onClick={() => setSelectedImage(`https://serviciopagina.upea.bo/Publicaciones/${item.publicaciones_imagen}`)}
-                                    />
-                                    <CardContent>
-                                        <h2 className='text-xl font-bold'>
-                                            {item.publicaciones_titulo}
-                                        </h2>
-                                        <div dangerouslySetInnerHTML={{ __html: item.publicaciones_descripcion }} />
-                                    </CardContent>
-                                </Card>
+                            <div className="w-full md:w-3/4 mx-auto">
+                                <img
+                                    src={`https://serviciopagina.upea.bo/Publicaciones/${item.publicaciones_imagen}`}
+                                    className="object-cover shadow-md cursor-pointer rounded-t-2xl h-96 w-full"
+                                    alt={item.publicaciones_titulo}
+                                    onClick={() => setSelectedImage(`https://serviciopagina.upea.bo/Publicaciones/${item.publicaciones_imagen}`)}
+                                />
+                                <div className="p-4">
+                                    <h2 className='text-xl text-gray-800 font-bold'>
+                                        {item.publicaciones_titulo}
+                                    </h2>
+                                </div>
                             </div>
                         </SwiperSlide>
                     ))}
