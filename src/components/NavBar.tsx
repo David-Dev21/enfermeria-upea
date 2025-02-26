@@ -1,7 +1,9 @@
 "use client"; // Añade esta línea al principio del archivo
 import { useState } from 'react';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import ButtonLink from './ButtonLink';
+
 
 export default function NavBar() {
     const [state, setState] = useState(false);
@@ -20,8 +22,8 @@ export default function NavBar() {
         <nav className="bg-white bg-opacity-90 w-3/4 fixed top-4 left-1/2 transform -translate-x-1/2 z-50 border-b shadow-lg rounded-lg mx-4">
             <div className="items-center px-4 max-w-screen-xl mx-auto md:flex md:px-8">
                 <div className="flex items-center justify-between md:py-3 md:block">
-                    <a href="/" className="flex items-center h-full">
-                        <img src="/images/logo-enfermeria.png" alt="logo" className="h-full max-h-12" />
+                    <a href="#" className="flex items-center">
+                        <Image src="/images/logo-enfermeria.png" alt="logo" width={48} height={48} className="h-full max-h-12" />
                     </a>
                     <div className="md:hidden">
                         <button className="text-gray-700 outline-none p-2 rounded-md focus:border-gray-400 focus:border"
@@ -45,7 +47,7 @@ export default function NavBar() {
                     <ul className="justify-center items-center space-y-8 md:flex md:space-x-6 md:space-y-0">
                         {
                             navigation.map((item, idx) => (
-                                <li key={idx} className={`text-gray-600 hover:text-blue-600 ${pathname === item.path ? 'bg-red-400 text-white p-2 rounded-2xl' : ''}`}>
+                                <li key={idx} className={`text-gray-600 hover:text-primary hover:border-b-4 hover:border-secondary  ${pathname === item.path ? 'bg-secondary text-white p-2 rounded-2xl hover:border-none hover:text-white' : ''}`}>
                                     <a href={item.path}>
                                         {item.title}
                                     </a>

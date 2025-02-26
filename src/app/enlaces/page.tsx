@@ -10,7 +10,7 @@ const LinksPage = () => {
             <Header title='Enlaces'>
                 <FontAwesomeIcon icon={faLink} className="text-red-600" />
             </Header>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 items-center justify-center mx-auto py-16 gap-12 lg:gap-0">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 items-center justify-center mx-auto py-24 gap-12 lg:gap-0">
                 <motion.div className="w-full px-10 text-sm bg-red-600 rounded-3xl lg:w-72 lg:px-0 mx-auto" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
                     <div className='p-3 text-center'>
                         <a href="https://matriculacion.upea.bo/" target="_blank">

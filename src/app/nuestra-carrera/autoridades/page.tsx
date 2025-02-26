@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import axios from 'axios';
-import { Card, CardContent } from "@/components/ModernCard";
+import { Card, CardContent } from "@/components/Card";
 import { Authority } from "@/interfaces/interfaces";
 import Header from "@/components/Header";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -52,7 +52,7 @@ const AuthoritiesPage = () => {
             <ul className="grid gap-8 mx-5 sm:grid-cols-2 md:grid-cols-3">
                 {autoridades.map((item) => (
                     <li key={item.id_autoridad} className="flex flex-col items-center">
-                        <Card>
+                        <Card className="w-full">
                             <img
                                 src={`https://serviciopagina.upea.bo/InstitucionUpea/Autoridad/${item.foto_autoridad}`}
                                 className="w-full h-60 sm:h-52 md:h-56 object-contain shadow-md"
