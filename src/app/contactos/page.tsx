@@ -16,6 +16,10 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Card, CardContent } from "@/components/Card";
 
+/**
+ * Componente para mostrar la página de contactos.
+ * Incluye información de contacto, horarios de atención y enlaces a redes sociales.
+ */
 const ContactsPage = () => {
   return (
     <section className="max-w-screen-xl h-full pt-24 flex flex-col justify-center mx-auto px-4 md:px-10">

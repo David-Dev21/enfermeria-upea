@@ -1,6 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 
+// Variantes de animación para el trazo del ECG
 const pathVariants = {
   hidden: {
     pathLength: 0,
@@ -12,12 +13,16 @@ const pathVariants = {
     transition: {
       duration: 3,
       ease: "easeInOut",
-      repeat: Infinity, // Repite la animación infinitamente
-      repeatType: "loop" as const, // Aseguramos que sea un valor válido ("loop")
+      repeat: Infinity,
+      repeatType: "loop" as const,
     },
   },
 };
 
+/**
+ * Componente que renderiza una animación de un trazo de ECG.
+ * @returns {JSX.Element} Elemento JSX que contiene la animación del ECG.
+ */
 function AnimatedECG() {
   return (
     <div style={styles.container}>

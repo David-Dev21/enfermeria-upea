@@ -1,11 +1,13 @@
 import { faFlag, faRocket } from "@fortawesome/free-solid-svg-icons";
-import FlipCard from "@/components/FlipCard"; // Ajusta la ruta si es necesario
+import FlipCard from "@/components/FlipCard";
 
+/**
+ * Componente para mostrar la misión y visión de la carrera de enfermería.
+ */
 const MissionVisionPage = () => {
   return (
     <section className="max-w-screen-xl mx-auto mt-20 px-4 md:px-6">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-stretch">
-        {/* Misión */}
         <FlipCard
           frontContent={
             <h2 className="font-bold text-6xl text-white text-center my-auto cursor-pointer">
@@ -28,7 +30,6 @@ const MissionVisionPage = () => {
           backTextColor="text-white"
         />
 
-        {/* Visión */}
         <FlipCard
           frontContent={
             <h2 className="font-bold text-6xl text-white text-center my-auto cursor-pointer">

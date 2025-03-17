@@ -1,20 +1,15 @@
-import { faGithub } from "@fortawesome/free-brands-svg-icons";
+import { FooterNav } from "@/types/type";
+import { faGithub, faWhatsapp } from "@fortawesome/free-brands-svg-icons";
 import { faEnvelope, faLocationDot } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
-type FooterNavItem = {
-  href: string;
-  name: string;
-};
-
-type FooterNav = {
-  label: string;
-  items: FooterNavItem[];
-};
-
+/**
+ * Componente que renderiza el pie de página del sitio web.
+ * @returns {JSX.Element} Elemento JSX que contiene el pie de página.
+ */
 const Footer = () => {
   const footerNavs: FooterNav[] = [
     {
@@ -143,7 +138,14 @@ const Footer = () => {
           >
             <FontAwesomeIcon icon={faGithub} />
           </a>
-          <span className="hidden">G</span>
+          <a
+            href="https://wa.me/59179550230"
+            target="_blank"
+            className="ms-2 text-gray-400 hover:text-cyan-500"
+          >
+            <FontAwesomeIcon icon={faWhatsapp} />
+          </a>
+          <span className="hidden">G ❤</span>
         </p>
       </div>
     </footer>

@@ -1,6 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 
+// Variantes de animación para el trazo del ECG
 const pathVariants = {
   hidden: {
     pathLength: 0,
@@ -10,15 +11,19 @@ const pathVariants = {
     pathLength: 1,
     opacity: 1,
     transition: {
-      duration: 1.5, // Adjusted duration to make the animation faster
+      duration: 1.5,
       ease: "easeInOut",
-      delay: 0, // Ensure no delay at the start
+      delay: 0,
       repeat: Infinity,
       repeatType: "loop" as const,
     },
   },
 };
 
+/**
+ * Componente que renderiza una animación de carga con un trazo de ECG.
+ * @returns {JSX.Element} Elemento JSX que contiene la animación de carga.
+ */
 const Loading = () => {
   return (
     <div className="flex items-center justify-center min-w-screen-lg min-h-screen bg-white">

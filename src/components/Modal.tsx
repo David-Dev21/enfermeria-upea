@@ -1,39 +1,27 @@
 import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { ModalProps } from "@/types/type";
 
-// Definimos los tipos para los props del modal
-interface ModalProps {
-  isOpen: boolean; // Controla si el modal está abierto o cerrado
-  onClose: () => void; // Función para cerrar el modal
-  children: React.ReactNode; // Contenido personalizado del modal
-  imageSrc?: string; // URL de la imagen opcional
-  attributes?: React.ReactNode; // Atributos adicionales para mostrar en el modal
-}
-
-function Modal({
-  isOpen,
-  onClose,
-  children,
-  imageSrc,
-  attributes,
-}: ModalProps) {
+/**
+ * Componente que renderiza un modal con animaciones.
+ * @param {ModalProps} props - Propiedades del componente.
+ * @returns {JSX.Element | null} Elemento JSX que contiene el modal o null si no está abierto.
+ */
+function Modal({ isOpen, onClose, imageSrc, attributes }: ModalProps) {
   if (!isOpen) return null;
 
   return (
     <AnimatePresence>
       {isOpen && (
         <>
-          {/* Fondo oscuro del modal */}
           <motion.div
             className="fixed inset-0 bg-black bg-opacity-50 z-40"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            onClick={onClose} // Cerrar al hacer clic fuera del modal
+            onClick={onClose}
           />
-
-          {/* Contenido del modal */}
           <motion.div
             className="fixed inset-0 flex items-center justify-center z-50"
             initial={{ opacity: 0, scale: 0.9 }}
@@ -44,7 +32,6 @@ function Modal({
             <div className="relative w-full max-w-4xl h-3/4 flex items-center justify-center">
               <div className="absolute -inset-2 rounded-2xl blur-sm bg-gradient-to-br from-primary to-secondary z-10 opacity-100"></div>
               <div className="bg-white rounded-lg p-2 w-full h-full relative flex z-20">
-                {/* Botón para cerrar el modal */}
                 <button
                   className="absolute top-2 right-2 text-gray-500 hover:text-gray-700"
                   onClick={onClose}
@@ -64,8 +51,6 @@ function Modal({
                     />
                   </svg>
                 </button>
-
-                {/* Contenido dividido */}
                 {imageSrc && (
                   <div className="w-1/2 h-full rounded-lg">
                     <img

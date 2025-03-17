@@ -12,24 +12,13 @@ import FlipCard from "@/components/FlipCard";
 import MissionVisionPage from "./mision-vision/page";
 import AuthoritiesPage from "./autoridades/page";
 import { motion } from "framer-motion";
-import { useState, useEffect } from "react";
-import Loading from "@/components/Loading";
+import Image from "next/image";
 
+/**
+ * Componente para mostrar información sobre la carrera de enfermería.
+ * Incluye secciones sobre el perfil profesional, campo de trabajo, misión y visión, y autoridades.
+ */
 const AboutPage = () => {
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 1000); // Adjust the duration to match the time it takes to render the entire view
-
-    return () => clearTimeout(timer);
-  }, []);
-
-  if (isLoading) {
-    return <Loading />;
-  }
-
   return (
     <>
       <section className="max-w-screen-xl h-full flex flex-col justify-center py-24 mx-auto px-4 md:px-6">
@@ -37,15 +26,17 @@ const AboutPage = () => {
           <FontAwesomeIcon icon={faBuilding} className="text-secondary" />
         </Header>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-stretch">
-          {/* Tarjeta 1: Perfil Profesional */}
           <FlipCard
             frontTitle="PERFIL PROFESIONAL"
             frontContent={
-              <img
-                src="/images/estudiantes-2.jpg"
-                alt="Perfil Profesional"
-                className="w-full h-full object-cover rounded-3xl cursor-pointer"
-              />
+              <div className="relative w-full h-full">
+                <Image
+                  src="/images/estudiantes-2.jpg"
+                  alt="Perfil Profesional"
+                  className="object-cover rounded-3xl cursor-pointer"
+                  layout="fill"
+                />
+              </div>
             }
             backTitle="PERFIL PROFESIONAL"
             icon={faAddressCard}
@@ -93,16 +84,17 @@ const AboutPage = () => {
               </div>
             }
           />
-
-          {/* Tarjeta 2: Campo de Trabajo Profesional */}
           <FlipCard
             frontTitle="CAMPO DE TRABAJO PROFESIONAL"
             frontContent={
-              <img
-                src="/images/estudiantes-3.jpg"
-                alt="Campo de Trabajo Profesional"
-                className="w-full h-full object-cover rounded-3xl cursor-pointer"
-              />
+              <div className="relative w-full h-full">
+                <Image
+                  src="/images/estudiantes-3.jpg"
+                  alt="Campo de Trabajo Profesional"
+                  className="object-cover rounded-3xl cursor-pointer"
+                  layout="fill"
+                />
+              </div>
             }
             backTitle="CAMPO DE TRABAJO PROFESIONAL"
             icon={faBriefcase}
@@ -170,14 +162,11 @@ const AboutPage = () => {
             rel="noopener noreferrer"
             className="relative inline-flex items-center justify-center px-6 py-3 text-lg font-bold text-white bg-gradient-to-r from-primary to-secondary rounded-full shadow-lg hover:from-secondary hover:to-primary transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 group"
           >
-            {/* Ícono */}
             <FontAwesomeIcon
               icon={faCloudArrowDown}
               className="w-6 h-6 mr-2 text-white group-hover:scale-110 transition-transform"
             />
-            {/* Texto */}
             Descargar Plan de Estudios
-            {/* Efecto de brillo adicional */}
             <span className="absolute inset-0 bg-white opacity-0 group-hover:opacity-20 transition-opacity rounded-full"></span>
           </a>
         </div>

@@ -3,27 +3,18 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Header from "@/components/Header";
 import Loading from "@/components/Loading";
+import SwiperComponent from "@/components/SwiperComponent";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFilePdf } from "@fortawesome/free-solid-svg-icons";
-import { Document, Page, pdfjs } from "react-pdf";
-
-// Configurar el worker de pdf.js
-pdfjs.GlobalWorkerOptions.workerSrc = new URL(
-  "pdfjs-dist/build/pdf.worker.min.js",
-  import.meta.url
-).toString();
+import { Gaceta } from "@/interfaces/interfaces";
 
 const BASE_PDF_URL = "https://serviciopagina.upea.bo/Gaceta/";
 
-interface Gaceta {
-  gaceta_id: number;
-  gaceta_titulo: string;
-  gaceta_fecha: string;
-  gaceta_estado: number;
-  gaceta_tipo: string | null;
-  gaceta_documento: string;
-}
-
+/**
+ * Componente para mostrar una lista de gacetas.
+ * Realiza una solicitud a la API para obtener las gacetas y las muestra en un carrusel.
+ * Muestra un componente de carga mientras se obtienen los datos y un mensaje de error si ocurre un problema.
+ */
 function GacetaPage() {
   const [gacetas, setGacetas] = useState<Gaceta[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
@@ -36,6 +27,9 @@ function GacetaPage() {
         const response = await axios.get<Gaceta[]>(
           "https://serviciopagina.upea.bo/api/gacetaunivAll/32"
         );
+        if (!Array.isArray(response.data)) {
+          throw new Error("Los datos recibidos no son un array.");
+        }
         setGacetas(response.data);
       } catch (error) {
         setError(
@@ -62,85 +56,46 @@ function GacetaPage() {
   }
 
   return (
-    <>
-      <section className="max-w-screen-xl h-full mx-auto flex flex-col justify-center pt-24 px-4 md:px-6">
-        <Header title="GACETAS">
-          <FontAwesomeIcon icon={faFilePdf} className="text-red-600" />
-        </Header>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
-          {gacetas.map((item) => (
-            <div
-              key={item.gaceta_id}
-              className="bg-white shadow-md rounded-lg overflow-hidden"
-            >
-              <div className="p-4">
-                <h2 className="text-lg font-semibold">{item.gaceta_titulo}</h2>
-                <p className="text-sm text-gray-600">
-                  Fecha:{" "}
-                  {new Date(item.gaceta_fecha).toLocaleDateString("es-ES", {
-                    day: "numeric",
-                    month: "long",
-                    year: "numeric",
-                  })}
-                </p>
+    <section className="max-w-screen-xl h-full mx-auto flex flex-col justify-center pt-24 px-4 md:px-6">
+      <Header title="GACETA">
+        <FontAwesomeIcon icon={faFilePdf} className="text-secondary" />
+      </Header>
+      <SwiperComponent
+        items={gacetas}
+        renderItem={(item) => (
+          <div>
+            <div className="w-full mx-auto relative z-20 scale-75">
+              <iframe
+                src={`${BASE_PDF_URL}${item.gaceta_documento}`}
+                width="100%"
+                height="400px"
+                className="border-0 rounded-2xl"
+              ></iframe>
+              <div className="absolute top-5 left-5 bg-primary text-white font-bold text-sm p-2 rounded-2xl">
+                {item.gaceta_titulo || "Sin título"}
               </div>
-              <div className="p-4 bg-gray-100">
-                <PDFPreview
-                  pdfUrl={`${BASE_PDF_URL}${item.gaceta_documento}`}
-                />
-                <a
-                  href={`${BASE_PDF_URL}${item.gaceta_documento}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-blue-500 underline mt-2 block text-center"
-                >
-                  Descargar PDF
-                </a>
+              <div className="absolute bottom-16 right-5 bg-secondary text-white font-bold text-sm p-2 rounded-full">
+                {item.gaceta_fecha
+                  ? new Date(item.gaceta_fecha).toLocaleDateString("es-ES", {
+                      day: "numeric",
+                      month: "long",
+                    })
+                  : "Sin fecha"}
               </div>
+              <a
+                href={`${BASE_PDF_URL}${item.gaceta_documento}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-white bg-primary p-2 hover:bg-secondary rounded-xl mt-2 block text-center"
+              >
+                Descargar PDF
+              </a>
             </div>
-          ))}
-        </div>
-      </section>
-    </>
-  );
-}
-
-// Componente para mostrar la vista previa del PDF usando react-pdf
-interface PDFPreviewProps {
-  pdfUrl: string;
-}
-
-function PDFPreview({ pdfUrl }: PDFPreviewProps) {
-  const [numPages, setNumPages] = useState<number | null>(null);
-  const [error, setError] = useState<string | null>(null);
-  const [loading, setLoading] = useState<boolean>(true);
-
-  function onDocumentLoadSuccess({ numPages }: { numPages: number }) {
-    setNumPages(numPages);
-    setLoading(false);
-  }
-
-  function onDocumentLoadError(error: Error) {
-    setError("No se pudo cargar el PDF.");
-    console.error(error);
-    setLoading(false);
-  }
-
-  return (
-    <div className="w-full h-[400px] flex items-center justify-center bg-white">
-      {loading && <p className="text-gray-500">Cargando PDF...</p>}
-      {error ? (
-        <p className="text-center text-red-500">{error}</p>
-      ) : (
-        <Document
-          file={{ url: pdfUrl }}
-          onLoadSuccess={onDocumentLoadSuccess}
-          onLoadError={onDocumentLoadError}
-        >
-          <Page pageNumber={1} width={600} />
-        </Document>
-      )}
-    </div>
+            <div className="absolute -inset-2 rounded-2xl blur-sm bg-gradient-to-br from-primary to-secondary z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 scale-75"></div>
+          </div>
+        )}
+      />
+    </section>
   );
 }
 

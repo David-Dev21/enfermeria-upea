@@ -14,8 +14,14 @@ import Loading from "@/components/Loading";
 import Modal from "@/components/Modal";
 import GacetaPage from "./gaceta/page";
 
+// URL base para las imágenes de los comunicados
 const BASE_IMAGE_URL = "https://serviciopagina.upea.bo/Convocatorias/";
 
+/**
+ * Componente para mostrar una lista de comunicados, avisos y convocatorias.
+ * Realiza una solicitud a la API para obtener los datos y los muestra en un carrusel.
+ * Muestra un componente de carga mientras se obtienen los datos y un mensaje de error si ocurre un problema.
+ */
 const AnnouncementsPage = () => {
   const [announcements, setAnnouncements] = useState<Announcement[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
@@ -71,7 +77,6 @@ const AnnouncementsPage = () => {
 
   return (
     <>
-      {/* Convocatorias */}
       <section className="max-w-screen-xl h-full  mx-auto flex flex-col justify-center pt-24 px-4 md:px-6">
         <Header title="CONVOCATORIAS">
           <FontAwesomeIcon icon={faCalendarDays} className="text-red-600" />
@@ -117,7 +122,6 @@ const AnnouncementsPage = () => {
         />
       </section>
 
-      {/* Avisos */}
       <section className="max-w-screen-xl h-full mx-auto flex flex-col justify-center px-4 md:px-6">
         <Header title="AVISOS">
           <FontAwesomeIcon icon={faBell} className="text-red-600" />
@@ -163,7 +167,6 @@ const AnnouncementsPage = () => {
         />
       </section>
 
-      {/* Comunicados */}
       <section className="max-w-screen-xl h-full mx-auto flex flex-col justify-center px-4 md:px-6">
         <Header title="COMUNICADOS">
           <FontAwesomeIcon icon={faBullhorn} className="text-red-600" />
@@ -208,9 +211,7 @@ const AnnouncementsPage = () => {
           )}
         />
       </section>
-      {/* <GacetaPage></GacetaPage> */}
-
-      {/* Modal para imagen seleccionada */}
+      <GacetaPage></GacetaPage>
       <Modal
         isOpen={!!selectedImage}
         onClose={() => {
@@ -221,23 +222,17 @@ const AnnouncementsPage = () => {
         attributes={
           selectedAttributes && (
             <div className="max-w-3xl mx-auto p-6 bg-white shadow-lg rounded-lg">
-              {/* Título */}
-              <h2 className="text-sm sm:text-2xl font-bold text-center text-white bg-primary p-2 rounded-lg mb-4">
-                {selectedAttributes.con_titulo}{" "}
-                <FontAwesomeIcon icon={faBullhorn} />
-              </h2>
-
-              {/* Descripción */}
+              <h4 className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent text-lg text-center font-bold py-2 sm:text-3xl">
+                <FontAwesomeIcon icon={faBullhorn} className="text-secondary" />{" "}
+                {selectedAttributes.con_titulo}
+              </h4>
               <div
                 className="text-tertiary text-xs sm:text-base leading-relaxed mb-6"
                 dangerouslySetInnerHTML={{
                   __html: selectedAttributes.con_descripcion,
                 }}
               />
-
-              {/* Detalles adicionales con badges e íconos */}
               <div className="flex flex-wrap gap-2">
-                {/* Fecha de inicio */}
                 <div className="group inline-flex items-center gap-1 px-3 py-1 bg-secondary text-white text-sm font-medium rounded-full relative">
                   <FontAwesomeIcon icon={faCalendarDays} />
                   {selectedAttributes.con_fecha_inicio
@@ -249,13 +244,10 @@ const AnnouncementsPage = () => {
                         year: "numeric",
                       })
                     : "Sin fecha"}
-                  {/* Tooltip */}
                   <span className="absolute bottom-full left-1/2 transform -translate-x-1/2 -translate-y-2 bg-black text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity">
                     Fecha de inicio
                   </span>
                 </div>
-
-                {/* Fecha de fin */}
                 <div className="group inline-flex items-center gap-1 px-3 py-1 bg-primary text-white text-sm font-medium rounded-full relative">
                   <FontAwesomeIcon icon={faCalendarDays} />
                   {selectedAttributes.con_fecha_fin
@@ -267,7 +259,6 @@ const AnnouncementsPage = () => {
                         year: "numeric",
                       })
                     : "Sin fecha"}
-                  {/* Tooltip */}
                   <span className="absolute bottom-full left-1/2 transform -translate-x-1/2 -translate-y-2 bg-black text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity">
                     Fecha de fin
                   </span>

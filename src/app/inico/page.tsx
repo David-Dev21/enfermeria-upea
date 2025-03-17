@@ -4,6 +4,7 @@ import PublicationsPage from "./publicaciones/page";
 import { motion } from "framer-motion";
 import AnimationECG from "@/components/AnimationECG";
 import VideosPage from "./videos/page";
+import Image from "next/image";
 
 const images = [
   "/images/enfermeria-1.jpg",
@@ -11,13 +12,17 @@ const images = [
   "/images/enfermeria-3.jpg",
 ];
 
+/**
+ * Componente principal de la página de inicio.
+ * Muestra una animación de bienvenida, un carrusel de imágenes y secciones de publicaciones y videos.
+ */
 const Welcome = () => {
   const [currentImage, setCurrentImage] = useState(0);
 
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentImage((prevImage) => (prevImage + 1) % images.length);
-    }, 3000); // Change image every 3 seconds
+    }, 3000);
 
     return () => clearInterval(interval);
   }, []);
@@ -31,14 +36,14 @@ const Welcome = () => {
       scale: 1,
       opacity: 1,
       transition: {
-        duration: 2, // Increase duration for slower zoom effect
+        duration: 2,
       },
     },
     exit: {
       scale: 1.2,
       opacity: 0,
       transition: {
-        duration: 2, // Increase duration for slower zoom effect
+        duration: 2,
       },
     },
   };
@@ -69,7 +74,7 @@ const Welcome = () => {
             </motion.p>
           </div>
           <motion.div
-            className="w-72 h-56 place-self-center md:w-full md:h-96 object-cover shadow-md rounded-3xl"
+            className="relative w-72 h-56 place-self-center shadow-md md:w-full md:h-96 rounded-3xl md:mt-10 mt-0"
             key={currentImage}
             variants={variants}
             initial="enter"
@@ -80,10 +85,12 @@ const Welcome = () => {
               opacity: { duration: 2 },
             }}
           >
-            <img
+            <Image
               src={images[currentImage]}
               alt="Enfermería"
-              className="w-full h-full object-cover rounded-3xl"
+              objectFit="cover"
+              className="rounded-3xl"
+              layout="fill"
             />
           </motion.div>
         </div>

@@ -1,10 +1,9 @@
-"use client"; // Asegúrate de incluir este comentario para usar hooks de React
+"use client";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Publication } from "@/interfaces/interfaces";
 import {
   faCalendar,
-  faComment,
   faNewspaper,
   faTag,
   faUser,
@@ -17,6 +16,11 @@ import Modal from "@/components/Modal";
 
 const BASE_IMAGE_URL = "https://serviciopagina.upea.bo/Publicaciones/";
 
+/**
+ * Componente para mostrar una lista de publicaciones.
+ * Realiza una solicitud a la API para obtener las publicaciones y las muestra en un carrusel.
+ * Muestra un componente de carga mientras se obtienen los datos y un mensaje de error si ocurre un problema.
+ */
 const PublicationsPage = () => {
   const [publications, setPublications] = useState<Publication[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
@@ -80,7 +84,6 @@ const PublicationsPage = () => {
                 src={`${BASE_IMAGE_URL}${item.publicaciones_imagen}`}
                 className="object-cover shadow-md cursor-pointer rounded-xl h-100 w-full"
                 alt={item.publicaciones_titulo || "Sin título"}
-                onError={(e) => (e.currentTarget.src = "/placeholder.png")}
               />
               <div className="absolute top-5 left-5 bg-primary text-white font-bold text-sm p-2 rounded-2xl">
                 {item.publicaciones_titulo || "Sin título"}
@@ -108,23 +111,20 @@ const PublicationsPage = () => {
         attributes={
           selectedAttributes && (
             <div className="max-w-3xl mx-auto p-6 bg-white shadow-lg rounded-lg">
-              {/* Título */}
-              <h2 className="text-sm sm:text-2xl font-bold text-center text-white bg-primary p-2 rounded-lg mb-4">
-                {selectedAttributes.publicaciones_titulo}{" "}
-                <FontAwesomeIcon icon={faComment} />
-              </h2>
-
-              {/* Descripción */}
+              <h4 className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent text-lg text-center font-bold py-2 sm:text-3xl">
+                <FontAwesomeIcon
+                  icon={faNewspaper}
+                  className="text-secondary"
+                />{" "}
+                {selectedAttributes.publicaciones_titulo || "Sin título"}
+              </h4>
               <div
                 className="text-tertiary text-xs sm:text-base leading-relaxed mb-6"
                 dangerouslySetInnerHTML={{
                   __html: selectedAttributes.publicaciones_descripcion,
                 }}
               />
-
-              {/* Detalles adicionales con badges e íconos */}
               <div className="flex flex-wrap gap-2">
-                {/* Fecha */}
                 <div className="group inline-flex items-center gap-1 px-3 py-1 bg-secondary text-white text-sm font-medium rounded-full relative">
                   <FontAwesomeIcon icon={faCalendar} />
                   {selectedAttributes.publicaciones_fecha
@@ -136,27 +136,20 @@ const PublicationsPage = () => {
                         year: "numeric",
                       })
                     : "Sin fecha"}
-                  {/* Tooltip */}
                   <span className="absolute bottom-full left-1/2 transform -translate-x-1/2 -translate-y-2 bg-black text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity">
                     Fecha de publicación
                   </span>
                 </div>
-
-                {/* Tipo */}
                 <div className="group inline-flex items-center gap-1 px-3 py-1 bg-primary text-white text-sm font-medium rounded-full relative">
                   <FontAwesomeIcon icon={faTag} />
-                  {selectedAttributes.publicaciones_tipo}
-                  {/* Tooltip */}
+                  {selectedAttributes.publicaciones_tipo || "Sin tipo"}
                   <span className="absolute bottom-full left-1/2 transform -translate-x-1/2 -translate-y-2 bg-black text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity">
                     Tipo de publicación
                   </span>
                 </div>
-
-                {/* Autor */}
                 <div className="group inline-flex items-center gap-1 px-3 py-1 bg-tertiary text-white text-sm font-medium rounded-full relative">
                   <FontAwesomeIcon icon={faUser} />
-                  {selectedAttributes.publicaciones_autor}
-                  {/* Tooltip */}
+                  {selectedAttributes.publicaciones_autor || "Sin autor"}
                   <span className="absolute bottom-full left-1/2 transform -translate-x-1/2 -translate-y-2 bg-black text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity">
                     Autor de la publicación
                   </span>

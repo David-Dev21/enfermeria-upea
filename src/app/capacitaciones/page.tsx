@@ -9,6 +9,9 @@ import {
   faCalendarDays,
   faChalkboardTeacher,
   faPersonChalkboard,
+  faMapMarkerAlt,
+  faLaptop,
+  faMoneyBillWave,
 } from "@fortawesome/free-solid-svg-icons";
 import Loading from "@/components/Loading";
 import Modal from "@/components/Modal";
@@ -175,12 +178,13 @@ const LearningPage = () => {
         attributes={
           selectedAttributes && (
             <div className="max-w-3xl mx-auto p-6 bg-white shadow-lg rounded-lg">
-              {/* Título */}
-              <h2 className="text-sm sm:text-2xl font-bold text-center text-white bg-primary p-2 rounded-lg mb-4">
-                {selectedAttributes.det_titulo}{" "}
-                <FontAwesomeIcon icon={faChalkboardTeacher} />
-              </h2>
-
+              <h4 className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent text-lg text-center font-bold py-2 sm:text-3xl">
+                <FontAwesomeIcon
+                  icon={faChalkboardTeacher}
+                  className="text-secondary"
+                />{" "}
+                {selectedAttributes.det_titulo}
+              </h4>
               {/* Descripción */}
               <div
                 className="text-tertiary text-xs sm:text-base leading-relaxed mb-6"
@@ -224,6 +228,38 @@ const LearningPage = () => {
                   {/* Tooltip */}
                   <span className="absolute bottom-full left-1/2 transform -translate-x-1/2 -translate-y-2 bg-black text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity">
                     Fecha de fin
+                  </span>
+                </div>
+
+                {/* Costo */}
+                <div className="group inline-flex items-center gap-1 px-3 py-1 bg-cyan-500 text-white text-sm font-medium rounded-full relative">
+                  <FontAwesomeIcon icon={faMoneyBillWave} />
+                  {selectedAttributes.det_costo
+                    ? `${selectedAttributes.det_costo} Bs`
+                    : "Sin costo"}
+                  {/* Tooltip */}
+                  <span className="absolute bottom-full left-1/2 transform -translate-x-1/2 -translate-y-2 bg-black text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity">
+                    Costo
+                  </span>
+                </div>
+
+                {/* Lugar */}
+                <div className="group inline-flex items-center gap-1 px-3 py-1 bg-blue-500 text-white text-sm font-medium rounded-full relative">
+                  <FontAwesomeIcon icon={faMapMarkerAlt} />
+                  {selectedAttributes.det_lugar_curso || "Sin lugar"}
+                  {/* Tooltip */}
+                  <span className="absolute bottom-full left-1/2 transform -translate-x-1/2 -translate-y-2 bg-black text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity">
+                    Lugar
+                  </span>
+                </div>
+
+                {/* Modalidad */}
+                <div className="group inline-flex items-center gap-1 px-3 py-1 bg-purple-500 text-white text-sm font-medium rounded-full relative">
+                  <FontAwesomeIcon icon={faLaptop} />
+                  {selectedAttributes.det_modalidad || "Sin modalidad"}
+                  {/* Tooltip */}
+                  <span className="absolute bottom-full left-1/2 transform -translate-x-1/2 -translate-y-2 bg-black text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity">
+                    Modalidad
                   </span>
                 </div>
               </div>

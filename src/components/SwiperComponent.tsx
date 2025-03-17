@@ -4,8 +4,8 @@ import { Pagination, Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
+import { SwiperComponentProps } from "@/types/type";
 
-// Constantes para centralizar valores repetidos
 const SLIDE_CLASSES = {
   container: "relative m-4 group",
   image: "object-cover shadow-md cursor-pointer rounded-t-2xl w-full",
@@ -15,18 +15,16 @@ const SLIDE_CLASSES = {
   title: "text-lg text-gray-800 font-bold",
 };
 
-interface SwiperComponentProps<T> {
-  items: T[];
-  renderItem: (item: T) => React.ReactNode;
-  onImageClick?: (item: T) => void;
-}
-
+/**
+ * Componente que renderiza un carrusel de elementos utilizando Swiper.
+ * @param {SwiperComponentProps<T>} props - Propiedades del componente.
+ * @returns {JSX.Element} Elemento JSX que contiene el carrusel.
+ */
 const SwiperComponent = <T,>({
   items,
   renderItem,
   onImageClick,
 }: SwiperComponentProps<T>) => {
-  // Validación de datos
   if (!Array.isArray(items) || items.length === 0) {
     return (
       <div className="text-center mt-10">No hay elementos disponibles.</div>

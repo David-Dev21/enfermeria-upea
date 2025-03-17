@@ -1,11 +1,17 @@
-"use client"; // Asegúrate de incluir este comentario para usar hooks de React
+"use client";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Video } from "@/interfaces/interfaces";
 import { faVideo } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Header from "@/components/Header";
+import Loading from "@/components/Loading";
 
+/**
+ * Componente para mostrar una lista de videos.
+ * Realiza una solicitud a la API para obtener los videos y los muestra en una cuadrícula.
+ * Muestra un componente de carga mientras se obtienen los datos y un mensaje de error si ocurre un problema.
+ */
 const VideosPage = () => {
   const [videos, setVideos] = useState<Video[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
@@ -39,7 +45,7 @@ const VideosPage = () => {
   }, []);
 
   if (loading) {
-    return <p className="text-center mt-10">Cargando videos...</p>;
+    return <Loading />;
   }
 
   if (error) {
