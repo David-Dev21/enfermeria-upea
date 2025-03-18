@@ -77,7 +77,7 @@ const LearningPage = () => {
         <Header title="CURSOS">
           <FontAwesomeIcon
             icon={faChalkboardTeacher}
-            className="text-red-600"
+            className="text-secondary"
           />
         </Header>
         <SwiperComponent
@@ -124,7 +124,10 @@ const LearningPage = () => {
       {/* Sección de Seminarios */}
       <section className="max-w-screen-xl h-full flex flex-col justify-center mx-auto px-4 md:px-6">
         <Header title="SEMINARIOS">
-          <FontAwesomeIcon icon={faPersonChalkboard} className="text-red-600" />
+          <FontAwesomeIcon
+            icon={faPersonChalkboard}
+            className="text-secondary"
+          />
         </Header>
         <SwiperComponent
           items={seminar}

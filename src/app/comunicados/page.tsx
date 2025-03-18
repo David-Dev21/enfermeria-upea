@@ -79,7 +79,7 @@ const AnnouncementsPage = () => {
     <>
       <section className="max-w-screen-xl h-full  mx-auto flex flex-col justify-center pt-24 px-4 md:px-6">
         <Header title="CONVOCATORIAS">
-          <FontAwesomeIcon icon={faCalendarDays} className="text-red-600" />
+          <FontAwesomeIcon icon={faCalendarDays} className="text-secondary" />
         </Header>
         <SwiperComponent
           items={calls}
@@ -124,7 +124,7 @@ const AnnouncementsPage = () => {
 
       <section className="max-w-screen-xl h-full mx-auto flex flex-col justify-center px-4 md:px-6">
         <Header title="AVISOS">
-          <FontAwesomeIcon icon={faBell} className="text-red-600" />
+          <FontAwesomeIcon icon={faBell} className="text-secondary" />
         </Header>
         <SwiperComponent
           items={notices}
@@ -169,7 +169,7 @@ const AnnouncementsPage = () => {
 
       <section className="max-w-screen-xl h-full mx-auto flex flex-col justify-center px-4 md:px-6">
         <Header title="COMUNICADOS">
-          <FontAwesomeIcon icon={faBullhorn} className="text-red-600" />
+          <FontAwesomeIcon icon={faBullhorn} className="text-secondary" />
         </Header>
         <SwiperComponent
           items={communications}

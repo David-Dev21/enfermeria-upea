@@ -7,6 +7,7 @@ import { Authority } from "@/interfaces/interfaces";
 import Header from "@/components/Header";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUsers } from "@fortawesome/free-solid-svg-icons";
+import Loading from "@/components/Loading";
 
 /**
  * Componente para mostrar una lista de autoridades.
@@ -50,7 +51,7 @@ const AuthoritiesPage = () => {
   }, []);
 
   if (loading) {
-    return <p className="text-center mt-10">Cargando autoridades...</p>;
+    return <Loading />;
   }
 
   if (error) {

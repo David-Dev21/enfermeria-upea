@@ -24,7 +24,7 @@ const ContactsPage = () => {
   return (
     <section className="max-w-screen-xl h-full pt-24 flex flex-col justify-center mx-auto px-4 md:px-10">
       <Header title="Contactate con Nosotros">
-        <FontAwesomeIcon icon={faIdCardClip} className="text-red-600" />
+        <FontAwesomeIcon icon={faIdCardClip} className="text-secondary" />
       </Header>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
         <motion.div
@@ -34,8 +34,8 @@ const ContactsPage = () => {
           transition={{ duration: 2 }}
         >
           <Card className="w-2/3 mx-auto">
-            <CardContent>
-              <h2 className="text-center text-2xl font-semibold text-primary mb-2 hover:text-secondary">
+            <CardContent className="text-primary hover:text-secondary">
+              <h2 className="text-center text-2xl font-semibold mb-2">
                 <FontAwesomeIcon icon={faClock} /> Horarios de Atención
               </h2>
               <div className="text-center text-lg text-gray-600 ">
@@ -46,8 +46,8 @@ const ContactsPage = () => {
             </CardContent>
           </Card>
           <Card className="w-2/3 mx-auto mt-4">
-            <CardContent>
-              <h2 className="text-center text-2xl text-primary font-semibold mb-2 hover:text-secondary">
+            <CardContent className="text-primary hover:text-secondary">
+              <h2 className="text-center text-2xl">
                 <FontAwesomeIcon icon={faAddressBook} /> Contactos
               </h2>
               <div className="text-center text-lg text-gray-600 ">
