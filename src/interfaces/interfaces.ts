@@ -1,13 +1,13 @@
 export interface Publication {
-    publicaciones_id: number;
     publicaciones_titulo: string;
+    publicaciones_descripcion: string;
+    publicaciones_fecha: Date | null; // Permitir null
+    publicaciones_autor: string;
+    publicaciones_id: number;
     publicaciones_tipo: string;
     publicaciones_imagen: string;
-    publicaciones_descripcion: string;
-    publicaciones_fecha: Date;
-    publicaciones_autor: string;
     publicaciones_documento: string;
-}
+  }
 
 export interface Authority {
     id_autoridad: number;

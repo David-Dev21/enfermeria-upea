@@ -113,8 +113,9 @@ const Footer = () => {
               </a>
               <br />
               <a
-                href="mailto:u-tic@upea.edu.bo"
+                href="https://mail.google.com/mail/u/0/?fs=1&to=utic@upea.edu.bo&tf=cm"
                 className="text-white hover:text-cyan-500"
+                target="_blank"
               >
                 <FontAwesomeIcon icon={faEnvelope} /> utic@upea.edu.bo
               </a>

@@ -28,8 +28,10 @@ const LinksPage = () => {
                 <Image
                   src="/images/mae.png"
                   alt="m@e"
-                  layout="fill"
-                  objectFit="contain"
+                  fill
+                  className="object-contain"
+                  priority
+                  sizes="(max-width: 1024px) 100vw, 25vw"
                 />
               </div>
               <p className="text-lg text-white">
@@ -50,12 +52,14 @@ const LinksPage = () => {
                 <Image
                   src="/images/inscripciones.png"
                   alt="inscripciones"
-                  layout="fill"
-                  objectFit="contain"
+                  fill
+                  className="object-contain"
+                  priority
+                  sizes="(max-width: 1024px) 100vw, 25vw"
                 />
               </div>
               <p className="text-lg text-white">
-                Sistema de inscripciones para estudiantes antiguos ENFERMERIA
+                Sistema de inscripciones para estudiantes antiguos de ENFERMERIA
               </p>
             </a>
           </div>
@@ -72,12 +76,14 @@ const LinksPage = () => {
                 <Image
                   src="/images/moodle.png"
                   alt="moodle"
-                  layout="fill"
-                  objectFit="contain"
+                  fill
+                  className="object-contain"
+                  priority
+                  sizes="(max-width: 1024px) 100vw, 25vw"
                 />
               </div>
               <p className="text-lg text-white">
-                El Campus Virtual es la plataforma de aprendizaje en línea de la
+                Campus Virtual es la plataforma de aprendizaje en línea de la
                 UPEA.
               </p>
             </a>
@@ -98,12 +104,14 @@ const LinksPage = () => {
                 <Image
                   src="/images/upea.png"
                   alt="upea"
-                  layout="fill"
-                  objectFit="contain"
+                  fill
+                  className="object-contain"
+                  priority
+                  sizes="(max-width: 1024px) 100vw, 25vw"
                 />
               </div>
               <p className="text-lg text-white">
-                La Biblioteca Virtual de la Upea es una colección de recursos
+                Biblioteca Virtual de la Upea es una colección de recursos
                 digitales accesibles en línea.
               </p>
             </a>

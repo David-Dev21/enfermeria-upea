@@ -32,6 +32,7 @@ export default function NavBar() {
               width={48}
               height={48}
               className="h-full max-h-12"
+              priority
             />
           </a>
           <div className="md:hidden">

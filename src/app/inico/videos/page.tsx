@@ -8,6 +8,15 @@ import Header from "@/components/Header";
 import Loading from "@/components/Loading";
 
 /**
+ * Sanitizes a string by removing potentially harmful characters.
+ * @param input - The string to sanitize.
+ * @returns The sanitized string.
+ */
+const sanitizeString = (input: string): string => {
+  return input.replace(/[^\w\sáéíóúüñÁÉÍÓÚÜÑ.,-]/gi, "");
+};
+
+/**
  * Componente para mostrar una lista de videos.
  * Realiza una solicitud a la API para obtener los videos y los muestra en una cuadrícula.
  * Muestra un componente de carga mientras se obtienen los datos y un mensaje de error si ocurre un problema.
@@ -27,7 +36,13 @@ const VideosPage = () => {
         if (!Array.isArray(response.data)) {
           throw new Error("Los datos recibidos no son un array.");
         }
-        setVideos(response.data);
+
+        const sanitizedData = response.data.map((item) => ({
+          ...item,
+          video_titulo: sanitizeString(item.video_titulo || ""),
+        }));
+
+        setVideos(sanitizedData);
       } catch (error) {
         setError(
           `Error: ${

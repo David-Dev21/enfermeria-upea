@@ -88,9 +88,10 @@ const Welcome = () => {
             <Image
               src={images[currentImage]}
               alt="Enfermería"
-              objectFit="cover"
-              className="rounded-3xl"
-              layout="fill"
+              fill
+              className="rounded-3xl object-cover"
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              priority
             />
           </motion.div>
         </div>

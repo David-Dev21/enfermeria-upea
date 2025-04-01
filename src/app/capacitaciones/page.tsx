@@ -15,9 +15,21 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import Loading from "@/components/Loading";
 import Modal from "@/components/Modal";
+import DOMPurify from "dompurify";
 
 // Constantes para centralizar valores repetidos
 const BASE_IMAGE_URL = "https://serviciopagina.upea.bo/Cursos/";
+
+/**
+ * Sanitiza una cadena eliminando caracteres potencialmente dañinos mientras permite etiquetas HTML seguras.
+ * @param input - La cadena a sanitizar.
+ * @returns La cadena sanitizada.
+ */
+const sanitizeString = (input: string): string => {
+  return DOMPurify.sanitize(input, {
+    ALLOWED_TAGS: ["p", "b", "i", "u", "strong", "em", "br"],
+  });
+};
 
 const LearningPage = () => {
   const [courses, setCourses] = useState<Courses[]>([]);
@@ -40,7 +52,14 @@ const LearningPage = () => {
         if (!Array.isArray(response.data)) {
           throw new Error("Los datos recibidos no son un array.");
         }
-        setCourses(response.data);
+
+        const sanitizedData = response.data.map((item) => ({
+          ...item,
+          det_titulo: sanitizeString(item.det_titulo || ""),
+          det_descripcion: sanitizeString(item.det_descripcion || ""),
+        }));
+
+        setCourses(sanitizedData);
       } catch (error) {
         setError(
           `Error: ${
@@ -192,7 +211,9 @@ const LearningPage = () => {
               <div
                 className="text-tertiary text-xs sm:text-base leading-relaxed mb-6"
                 dangerouslySetInnerHTML={{
-                  __html: selectedAttributes.det_descripcion,
+                  __html: sanitizeString(
+                    selectedAttributes.det_descripcion || ""
+                  ),
                 }}
               />
 

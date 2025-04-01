@@ -11,6 +11,15 @@ import { Gaceta } from "@/interfaces/interfaces";
 const BASE_PDF_URL = "https://serviciopagina.upea.bo/Gaceta/";
 
 /**
+ * Sanitizes a string by removing potentially harmful characters.
+ * @param input - The string to sanitize.
+ * @returns The sanitized string.
+ */
+const sanitizeString = (input: string): string => {
+  return input.replace(/[^\w\sáéíóúüñÁÉÍÓÚÜÑ.,-]/gi, "");
+};
+
+/**
  * Componente para mostrar una lista de gacetas.
  * Realiza una solicitud a la API para obtener las gacetas y las muestra en un carrusel.
  * Muestra un componente de carga mientras se obtienen los datos y un mensaje de error si ocurre un problema.
@@ -30,7 +39,13 @@ function GacetaPage() {
         if (!Array.isArray(response.data)) {
           throw new Error("Los datos recibidos no son un array.");
         }
-        setGacetas(response.data);
+
+        const sanitizedData = response.data.map((item) => ({
+          ...item,
+          gaceta_titulo: sanitizeString(item.gaceta_titulo || ""),
+        }));
+
+        setGacetas(sanitizedData);
       } catch (error) {
         setError(
           `Error: ${

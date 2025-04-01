@@ -13,8 +13,20 @@ import Header from "@/components/Header";
 import SwiperComponent from "@/components/SwiperComponent";
 import Loading from "@/components/Loading";
 import Modal from "@/components/Modal";
+import DOMPurify from "dompurify";
 
 const BASE_IMAGE_URL = "https://serviciopagina.upea.bo/Publicaciones/";
+
+/**
+ * Sanitiza una cadena eliminando caracteres potencialmente dañinos mientras permite etiquetas HTML seguras.
+ * @param input - La cadena a sanitizar.
+ * @returns La cadena sanitizada.
+ */
+const sanitizeString = (input: string): string => {
+  return DOMPurify.sanitize(input, {
+    ALLOWED_TAGS: ["p", "b", "i", "u", "strong", "em", "br"],
+  });
+};
 
 /**
  * Componente para mostrar una lista de publicaciones.
@@ -38,10 +50,25 @@ const PublicationsPage = () => {
         const response = await axios.get<Publication[]>(
           "https://serviciopagina.upea.bo/api/publicacionesAll/32"
         );
+
         if (!Array.isArray(response.data)) {
           throw new Error("Los datos recibidos no son un array.");
         }
-        setPublications(response.data);
+
+        // Sanitizamos y convertimos `publicaciones_fecha` a `Date`
+        const sanitizedData = response.data.map((item) => ({
+          ...item,
+          publicaciones_titulo: sanitizeString(item.publicaciones_titulo || ""),
+          publicaciones_descripcion: sanitizeString(
+            item.publicaciones_descripcion || ""
+          ),
+          publicaciones_fecha: item.publicaciones_fecha
+            ? new Date(item.publicaciones_fecha) // Convertimos a `Date`
+            : null, // Manejo seguro en caso de que sea nulo
+          publicaciones_autor: sanitizeString(item.publicaciones_autor || ""),
+        }));
+
+        setPublications(sanitizedData); // Guardamos datos seguros y con fecha convertida
       } catch (error) {
         setError(
           `Error: ${
@@ -121,7 +148,9 @@ const PublicationsPage = () => {
               <div
                 className="text-tertiary text-xs sm:text-base leading-relaxed mb-6"
                 dangerouslySetInnerHTML={{
-                  __html: selectedAttributes.publicaciones_descripcion,
+                  __html: sanitizeString(
+                    selectedAttributes?.publicaciones_descripcion || ""
+                  ),
                 }}
               />
               <div className="flex flex-wrap gap-2">

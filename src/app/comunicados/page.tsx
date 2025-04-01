@@ -13,9 +13,21 @@ import {
 import Loading from "@/components/Loading";
 import Modal from "@/components/Modal";
 import GacetaPage from "./gaceta/page";
+import DOMPurify from "dompurify";
 
 // URL base para las imágenes de los comunicados
 const BASE_IMAGE_URL = "https://serviciopagina.upea.bo/Convocatorias/";
+
+/**
+ * Sanitiza una cadena eliminando caracteres potencialmente dañinos mientras permite etiquetas HTML seguras.
+ * @param input - La cadena a sanitizar.
+ * @returns La cadena sanitizada.
+ */
+const sanitizeString = (input: string): string => {
+  return DOMPurify.sanitize(input, {
+    ALLOWED_TAGS: ["p", "b", "i", "u", "strong", "em", "br"],
+  });
+};
 
 /**
  * Componente para mostrar una lista de comunicados, avisos y convocatorias.
@@ -42,7 +54,14 @@ const AnnouncementsPage = () => {
         if (!Array.isArray(response.data)) {
           throw new Error("Los datos recibidos no son un array.");
         }
-        setAnnouncements(response.data);
+
+        const sanitizedData = response.data.map((item) => ({
+          ...item,
+          con_titulo: sanitizeString(item.con_titulo || ""),
+          con_descripcion: sanitizeString(item.con_descripcion || ""),
+        }));
+
+        setAnnouncements(sanitizedData);
       } catch (error) {
         setError(
           `Error: ${
@@ -229,7 +248,9 @@ const AnnouncementsPage = () => {
               <div
                 className="text-tertiary text-xs sm:text-base leading-relaxed mb-6"
                 dangerouslySetInnerHTML={{
-                  __html: selectedAttributes.con_descripcion,
+                  __html: sanitizeString(
+                    selectedAttributes.con_descripcion || ""
+                  ),
                 }}
               />
               <div className="flex flex-wrap gap-2">

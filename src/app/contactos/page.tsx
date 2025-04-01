@@ -55,7 +55,6 @@ const ContactsPage = () => {
                   <FontAwesomeIcon icon={faPhone} /> 77775964 -{" "}
                   <FontAwesomeIcon icon={faPhone} /> 70592234
                 </p>
-                <p></p>
                 <p>
                   <a
                     href="mailto:enfermeria-upea@gmail.com"

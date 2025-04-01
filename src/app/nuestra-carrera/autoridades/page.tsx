@@ -1,5 +1,4 @@
 "use client";
-
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { Card, CardContent } from "@/components/Card";
@@ -19,6 +18,15 @@ const AuthoritiesPage = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
+  /**
+   * Sanitizes a string by removing potentially harmful characters.
+   * @param input - The string to sanitize.
+   * @returns The sanitized string.
+   */
+  const sanitizeString = (input: string): string => {
+    return input.replace(/[^\w\sáéíóúüñÁÉÍÓÚÜÑ.,-]/gi, "");
+  };
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -32,7 +40,13 @@ const AuthoritiesPage = () => {
           throw new Error("Datos obtenidos no son un array.");
         }
 
-        setAutoridades(response.data);
+        const sanitizedData = response.data.map((item) => ({
+          ...item,
+          nombre_autoridad: sanitizeString(item.nombre_autoridad || ""),
+          cargo_autoridad: sanitizeString(item.cargo_autoridad || ""),
+        }));
+
+        setAutoridades(sanitizedData);
       } catch (error) {
         setError(
           `Error: ${
@@ -61,7 +75,7 @@ const AuthoritiesPage = () => {
   return (
     <section className="max-w-screen-xl h-full mx-auto mb-20 px-4 md:px-10">
       <Header title="Nuestras Autoridades">
-        <FontAwesomeIcon icon={faUsers} className="text-red-600" />
+        <FontAwesomeIcon icon={faUsers} className="text-secondary" />
       </Header>
       <ul className="grid gap-8 mx-5 sm:grid-cols-2 md:grid-cols-3">
         {autoridades.map((item) => (

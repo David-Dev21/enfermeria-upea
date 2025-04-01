@@ -34,7 +34,8 @@ const AboutPage = () => {
                   src="/images/estudiantes-2.jpg"
                   alt="Perfil Profesional"
                   className="object-cover rounded-3xl cursor-pointer"
-                  layout="fill"
+                  fill
+                  priority
                 />
               </div>
             }
@@ -92,7 +93,8 @@ const AboutPage = () => {
                   src="/images/estudiantes-3.jpg"
                   alt="Campo de Trabajo Profesional"
                   className="object-cover rounded-3xl cursor-pointer"
-                  layout="fill"
+                  fill
+                  priority
                 />
               </div>
             }
